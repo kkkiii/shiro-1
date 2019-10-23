@@ -26,6 +26,7 @@ public class ShiroConfig {
 	filter_map.put("/user/add" ,"perms[user:add]") ;
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filter_map);
 	shiroFilterFactoryBean.setLoginUrl("/login");
+	shiroFilterFactoryBean.setUnauthorizedUrl("/un_auth");
 		return shiroFilterFactoryBean;
 	}
 

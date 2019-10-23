@@ -1,12 +1,18 @@
 package prof.leu.shiro1.conf;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import prof.leu.shiro1.domain.User;
 import prof.leu.shiro1.service.UserService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserRealm extends AuthorizingRealm{
 	@Autowired
@@ -16,7 +22,19 @@ public class UserRealm extends AuthorizingRealm{
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
 		System.err.println("执行授权逻辑");
-		return null;
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		Set set = new HashSet() ;
+
+
+//		User user = this.getUser(username) ;
+		Subject subject = SecurityUtils.getSubject() ;
+		User user = (User) subject.getPrincipal();
+
+		System.err.println(user.getName());
+
+		set.add("user:add") ;
+		info.setStringPermissions(set);
+		return info ;
 	}
 
 	@Override
@@ -32,14 +50,16 @@ public class UserRealm extends AuthorizingRealm{
 		char[]	password = utoken.getPassword() ;
 
 
-		User user= userService.findByName(username) ;
+		User user = userService.findByName(username) ;
+
 
 		if (user==null){
 			return  null ;
 		}
 
 
-		return new SimpleAuthenticationInfo("",user.getPassword(),"");
+		return new SimpleAuthenticationInfo(user,user.getPassword(),"");
 	}
+
 
 }
