@@ -22,7 +22,7 @@ public class ShiroConfig {
 //		filter_map.put("/add" ,"authc") ;
 //		filter_map.put("/update" ,"authc") ;
 //	filter_map.put("/user/add" ,"authc") ;
-	filter_map.put("/user/update" ,"authc") ;
+	filter_map.put("/user/update", "perms[user:update]") ;
 	filter_map.put("/user/add" ,"perms[user:add]") ;
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filter_map);
 	shiroFilterFactoryBean.setLoginUrl("/login");

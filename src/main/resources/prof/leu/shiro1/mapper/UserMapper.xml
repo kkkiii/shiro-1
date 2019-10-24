@@ -8,11 +8,25 @@
         SELECT
           `id`,
           `NAME`,
-          `PASSWORD`
+          `PASSWORD`,
+          `PERMS`
         FROM
           `springmvc`.`USER`
         WHERE
            `NAME` = #{value}
     </select>
+    <select id="findById" resultType="user" parameterType="String">
+        SELECT
+          `id`,
+          `NAME`,
+          `PASSWORD`,
+          `PERMS`
+        FROM
+          `springmvc`.`USER`
+        WHERE
+           `id` = #{value}
+    </select>
+
+
 
 </mapper>

@@ -8,6 +8,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+//import prof.leu.shiro1.domain.User;
 import prof.leu.shiro1.domain.User;
 import prof.leu.shiro1.service.UserService;
 
@@ -30,9 +31,7 @@ public class UserRealm extends AuthorizingRealm{
 		Subject subject = SecurityUtils.getSubject() ;
 		User user = (User) subject.getPrincipal();
 
-		System.err.println(user.getName());
-
-		set.add("user:add") ;
+		set.add(user.getPerms()) ;
 		info.setStringPermissions(set);
 		return info ;
 	}
@@ -50,10 +49,12 @@ public class UserRealm extends AuthorizingRealm{
 		char[]	password = utoken.getPassword() ;
 
 
-		User user = userService.findByName(username) ;
+		User user;
+        user = userService.findByName(username);
 
 
-		if (user==null){
+
+        if (user==null){
 			return  null ;
 		}
 
