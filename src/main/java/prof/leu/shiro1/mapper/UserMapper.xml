@@ -14,5 +14,17 @@
         WHERE
            `NAME` = #{value}
     </select>
+    <select id="findById" resultType="user" parameterType="String">
+        SELECT
+          `id`,
+          `NAME`,
+          `PASSWORD`
+        FROM
+          `springmvc`.`USER`
+        WHERE
+           `id` = #{value}
+    </select>
+
+
 
 </mapper>
